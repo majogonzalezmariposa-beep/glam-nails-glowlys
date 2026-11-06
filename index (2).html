@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ✏️ EDITA AQUÍ: el título que aparece en la pestaña del navegador -->
+<title>Glam Nails | Manicure y Pedicure</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* 🎨 COLORES Y LETRAS: cambia estas líneas y toda la página cambia de estilo */
+:root{
+  --color-principal:#E8458B;   /* rosa fuerte: botones y detalles */
+  --color-secundario:#8E5BD6;  /* lila */
+  --color-fondo:#FFF4F6;       /* fondo suave */
+  --color-oscuro:#3B1738;      /* textos y fondos oscuros */
+  --color-dorado:#C9A24B;      /* brillos */
+  --fuente-titulos:'Playfair Display',Georgia,serif;
+  --fuente-texto:'Quicksand','Segoe UI',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fuente-texto);background:var(--color-fondo);color:var(--color-oscuro);line-height:1.6}
+h1,h2,h3{font-family:var(--fuente-titulos);line-height:1.15}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--color-secundario);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:72px 0;position:relative}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:10px}
+.sub{max-width:520px;margin-bottom:34px;opacity:.8}
+.btn{display:inline-block;background:var(--color-principal);color:#fff;border:0;border-radius:999px;padding:13px 28px;font:700 1rem var(--fuente-texto);text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px) rotate(-1deg);box-shadow:0 10px 22px rgba(232,69,139,.35)}
+
+/* ===== MENÚ ===== */
+header{position:sticky;top:0;z-index:50;background:rgba(255,244,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(59,23,56,.1)}
+nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--fuente-titulos);font-size:1.4rem;font-weight:600;text-decoration:none}
+.logo span{color:var(--color-principal)}
+nav ul{display:flex;gap:20px;list-style:none}
+nav ul a{text-decoration:none;font-weight:700}
+nav ul a:hover{color:var(--color-principal)}
+#burger{display:none;background:none;border:0;font-size:1.8rem;cursor:pointer}
+@media(max-width:700px){
+  #burger{display:block}
+  nav ul{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--color-fondo);padding:10px 20px 18px}
+  nav ul.abierto{display:flex}
+  nav ul a{display:block;padding:12px 0}
+}
+
+/* ===== INICIO + PROBADOR (lo más llamativo) ===== */
+#inicio{background:linear-gradient(160deg,#FFE3EC 0%,#EFE3FF 100%);overflow:hidden}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:800px){.hero{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2.2rem,6vw,3.8rem);margin-bottom:14px}
+/* ✏️ EDITA AQUÍ los textos del inicio están en el HTML de abajo */
+.hero p{max-width:440px;margin-bottom:24px}
+.probador{background:#fff;border-radius:28px;padding:26px;box-shadow:0 18px 40px rgba(59,23,56,.15);text-align:center}
+.probador h3{font-size:1.3rem;margin-bottom:4px}
+.probador small{opacity:.7}
+.mano{display:flex;justify-content:center;align-items:flex-end;gap:8px;height:150px;margin:20px 0 12px}
+.una{width:34px;background:var(--esmalte,#E8458B);border-radius:16px 16px 6px 6px;position:relative;transition:background .35s,border-radius .35s,height .35s;box-shadow:inset -5px 0 0 rgba(255,255,255,.22),0 4px 8px rgba(0,0,0,.15)}
+.una::after{content:"";position:absolute;top:8px;left:7px;width:6px;height:40%;background:rgba(255,255,255,.55);border-radius:6px}
+.una:nth-child(1){height:78px}.una:nth-child(2){height:104px}.una:nth-child(3){height:118px}.una:nth-child(4){height:106px}.una:nth-child(5){height:84px}
+.mano.almendra .una{border-radius:50% 50% 6px 6px / 70% 70% 6px 6px}
+.mano.cuadrada .una{border-radius:3px}
+.mano.redonda .una{border-radius:18px 18px 8px 8px}
+.mano.glitter .una{background-image:radial-gradient(rgba(255,255,255,.9) 1.2px,transparent 1.6px);background-size:9px 9px}
+.fila{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:10px 0}
+.color{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px rgba(59,23,56,.2);cursor:pointer;transition:transform .2s}
+.color:hover,.color[aria-pressed="true"]{transform:scale(1.2);box-shadow:0 0 0 3px var(--color-oscuro)}
+.chip{background:#F5E9F5;border:0;border-radius:999px;padding:7px 14px;font:700 .85rem var(--fuente-texto);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--color-oscuro);color:#fff}
+#nombreColor{font-weight:700;color:var(--color-principal);min-height:1.6em}
+
+/* decoración: brillos que flotan */
+.brillo{position:absolute;font-size:1.4rem;opacity:.7;animation:flota 6s ease-in-out infinite;pointer-events:none}
+@keyframes flota{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(15deg)}}
+@media(prefers-reduced-motion:reduce){.brillo{animation:none}html{scroll-behavior:auto}}
+
+/* ===== SERVICIOS ===== */
+.servicios{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.serv{background:#fff;border-radius:24px;padding:26px;border-top:6px solid var(--c,var(--color-principal));transition:transform .25s}
+.serv:nth-child(even){border-radius:24px 24px 24px 60px}
+.serv:nth-child(odd){border-radius:24px 60px 24px 24px}
+.serv:hover{transform:translateY(-6px)}
+.serv .emo{font-size:2rem}
+.serv h3{font-size:1.25rem;margin:8px 0 6px}
+.serv p{font-size:.95rem;opacity:.85;margin-bottom:12px}
+.precio{font-weight:700;color:var(--color-principal)}
+
+/* ===== GALERÍA ===== */
+#galeria{background:var(--color-oscuro);color:#fff}
+#galeria .chip{background:rgba(255,255,255,.12);color:#fff}
+#galeria .chip[aria-pressed="true"]{background:var(--color-principal)}
+.filtros{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.foto{aspect-ratio:4/5;border-radius:20px;background:var(--fondo);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:16px;text-align:center;position:relative;overflow:hidden;cursor:pointer;transition:transform .3s}
+.foto:hover{transform:scale(1.04) rotate(-1deg)}
+.foto .grande{font-size:3.4rem;margin:auto 0}
+.foto b{background:rgba(255,255,255,.85);color:var(--color-oscuro);padding:5px 12px;border-radius:999px;font-size:.85rem}
+.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.foto.oculta{display:none}
+
+
+/* ===== UÑAS DIBUJADAS (imágenes de referencia que siempre cargan) ===== */
+.minanas{display:flex;align-items:flex-end;justify-content:center;gap:7px;margin:auto 0}
+.mn{display:block;width:26px;height:62px;border-radius:14px 14px 6px 6px;position:relative;box-shadow:inset -4px 0 0 rgba(255,255,255,.25),0 3px 6px rgba(0,0,0,.2)}
+.mn:nth-child(1){height:46px}.mn:nth-child(2){height:60px}.mn:nth-child(3){height:68px}.mn:nth-child(4){height:60px}.mn:nth-child(5){height:48px}
+.mn::before{content:attr(data-d);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.minanas.larga .mn{width:22px;border-radius:11px 11px 4px 4px;transform:scaleY(1.3);transform-origin:bottom}
+.minanas.pie .mn{width:24px;height:24px!important;border-radius:50%}
+.minanas.pie .mn:nth-child(1){width:34px;height:34px!important}
+.inspira{margin-top:34px;padding-top:26px;border-top:1px dashed rgba(255,255,255,.3)}
+.inspira p{margin-bottom:12px}
+.inspira a{display:inline-block;margin:0 8px 8px 0;padding:9px 16px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;text-decoration:none;font-weight:700;font-size:.9rem;transition:background .2s}
+.inspira a:hover{background:var(--color-principal)}
+.foto .real{position:absolute;inset:0}
+
+/* cinta decorativa */
+.cinta{background:var(--color-oscuro);color:#fff;overflow:hidden;white-space:nowrap;padding:12px 0;font-weight:700}
+.cinta div{display:inline-block;animation:pasa 26s linear infinite}
+@keyframes pasa{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.cinta div{animation:none}}
+
+/* opiniones */
+.opiniones{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.op{background:#fff;border-radius:24px;padding:24px;position:relative}
+.op::before{content:"“";font:700 4rem var(--fuente-titulos);color:var(--color-principal);opacity:.25;position:absolute;top:-4px;left:16px}
+.op p{margin-top:18px}.op b{display:block;margin-top:10px;color:var(--color-secundario)}
+#opiniones{background:linear-gradient(160deg,#EFE3FF,#FFE3EC)}
+
+/* preguntas */
+details{background:#fff;border-radius:16px;padding:16px 20px;margin-bottom:12px;max-width:720px}
+summary{font-weight:700;cursor:pointer}
+details[open] summary{color:var(--color-principal)}
+details p{margin-top:10px;opacity:.85}
+
+/* ===== CONTACTO ===== */
+.contacto{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+@media(max-width:800px){.contacto{grid-template-columns:1fr}}
+form{display:grid;gap:12px}
+input,select,textarea{width:100%;padding:12px 14px;border:2px solid #F1CFE0;border-radius:14px;font:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{border-color:var(--color-secundario);outline:none}
+#gracias{color:var(--color-secundario);font-weight:700;min-height:1.5em}
+footer{text-align:center;padding:26px;background:var(--color-oscuro);color:#fff;font-size:.9rem}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <!-- ✏️ EDITA AQUÍ: el nombre de tu emprendimiento -->
+    <a class="logo" href="#inicio">Glam<span>Nails</span> 💅</a>
+    <button id="burger" aria-label="Abrir menú">☰</button>
+    <ul id="menu">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#opiniones">Opiniones</a></li>
+      <li><a href="#preguntas">Preguntas</a></li>
+      <li><a href="#contacto">Reserva</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============ INICIO ============ -->
+<section id="inicio">
+  <span class="brillo" style="top:12%;left:6%">✨</span>
+  <span class="brillo" style="top:60%;left:44%;animation-delay:1s">💖</span>
+  <span class="brillo" style="top:10%;right:8%;animation-delay:2s">✨</span>
+  <span class="brillo" style="bottom:8%;right:14%;animation-delay:3s">💎</span>
+  <div class="wrap hero">
+    <div>
+      <!-- ✏️ EDITA AQUÍ: cambia este título -->
+      <h1>Uñas que cuentan quién eres</h1>
+      <!-- ✏️ EDITA AQUÍ: cambia esta descripción -->
+      <p>Manicure, pedicure y diseños únicos hechos con cariño. Elige tu color y tu forma favorita aquí y luego reserva tu cita.</p>
+      <a class="btn" href="#contacto">Reservar mi cita</a>
+    </div>
+
+    <!-- Probador interactivo: toca un color y una forma -->
+    <div class="probador">
+      <h3>Prueba tu look</h3>
+      <small>Toca un color y una forma</small>
+      <div class="mano almendra" id="mano">
+        <div class="una"></div><div class="una"></div><div class="una"></div><div class="una"></div><div class="una"></div>
+      </div>
+      <p id="nombreColor">Rosa chicle</p>
+      <div class="fila" id="colores"></div>
+      <div class="fila" id="formas">
+        <button class="chip" data-forma="almendra" aria-pressed="true">Almendra</button>
+        <button class="chip" data-forma="cuadrada" aria-pressed="false">Cuadrada</button>
+        <button class="chip" data-forma="redonda" aria-pressed="false">Redonda</button>
+        <button class="chip" data-forma="glitter" aria-pressed="false">✨ Glitter</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cinta" aria-hidden="true"><div>
+  ✨ Manicure ✨ Pedicure ✨ Acrílicas ✨ Nail art ✨ Semipermanente ✨ Glitter ✨ Francesas ✨ Manicure ✨ Pedicure ✨ Acrílicas ✨ Nail art ✨ Semipermanente ✨ Glitter ✨ Francesas
+</div></div>
+
+<!-- ============ SERVICIOS ============ -->
+<section id="servicios">
+  <div class="wrap">
+    <h2>Nuestros servicios</h2>
+    <p class="sub">Elige el que más se parezca a lo que tienes en mente. ¡Y si quieres algo distinto, lo diseñamos juntas!</p>
+    <div class="servicios">
+      <!-- ✏️ EDITA AQUÍ: cambia nombres, descripciones y precios de cada servicio -->
+      <div class="serv" style="--c:#E8458B"><div class="emo">💅</div><h3>Manicure clásico</h3><p>Limado, cutículas, hidratación y esmalte tradicional.</p><span class="precio">Desde $15.000</span></div>
+      <div class="serv" style="--c:#8E5BD6"><div class="emo">🦶</div><h3>Pedicure spa</h3><p>Exfoliación, masaje relajante y esmaltado de pies.</p><span class="precio">Desde $25.000</span></div>
+      <div class="serv" style="--c:#C9A24B"><div class="emo">👑</div><h3>Uñas acrílicas</h3><p>Largo y forma a tu gusto: almendra, cuadrada, stiletto.</p><span class="precio">Desde $60.000</span></div>
+      <div class="serv" style="--c:#2BB5A0"><div class="emo">🫧</div><h3>Esmaltado semipermanente</h3><p>Color brillante que dura hasta 3 semanas.</p><span class="precio">Desde $30.000</span></div>
+      <div class="serv" style="--c:#FF8A5B"><div class="emo">🎨</div><h3>Nail art</h3><p>Dibujos, piedras, mariposas, flores y lo que imagines.</p><span class="precio">Desde $5.000 por uña</span></div>
+      <div class="serv" style="--c:#4A90E2"><div class="emo">🌸</div><h3>Combo manicure + pedicure</h3><p>El plan completo para consentirte de pies a manos.</p><span class="precio">Desde $38.000</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERÍA ============ -->
+<section id="galeria">
+  <div class="wrap">
+    <h2>Galería de diseños</h2>
+    <p class="sub">Filtra por estilo y encuentra tu inspiración.</p>
+    <div class="filtros" id="filtros">
+      <button class="chip" data-cat="todas" aria-pressed="true">Todas</button>
+      <button class="chip" data-cat="francesas" aria-pressed="false">Francesas</button>
+      <button class="chip" data-cat="acrilicas" aria-pressed="false">Acrílicas</button>
+      <button class="chip" data-cat="decoradas" aria-pressed="false">Decoradas</button>
+      <button class="chip" data-cat="pedicure" aria-pressed="false">Pedicure</button>
+    </div>
+    <div class="galeria" id="galeria-items"></div>
+    <div class="inspira">
+      <p>💡 ¿Quieres más ideas de diseños? Mira fotos de referencia:</p>
+      <a href="https://unsplash.com/s/photos/nail-art" target="_blank" rel="noopener">Nail art</a>
+      <a href="https://unsplash.com/s/photos/nail-design" target="_blank" rel="noopener">Diseños de uñas</a>
+      <a href="https://unsplash.com/s/photos/acrylic+nails" target="_blank" rel="noopener">Acrílicas</a>
+      <a href="https://unsplash.com/s/photos/nail-polish" target="_blank" rel="noopener">Esmaltes</a>
+      <a href="https://www.pinterest.com/search/pins/?q=u%C3%B1as%20decoradas" target="_blank" rel="noopener">Pinterest</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OPINIONES ============ -->
+<section id="opiniones">
+  <div class="wrap">
+    <h2>Lo que dicen nuestras clientas</h2>
+    <p class="sub">Ejemplos para que veas cómo queda. Cámbialos por opiniones reales de tus clientas.</p>
+    <div class="opiniones">
+      <!-- ✏️ EDITA AQUÍ: cambia las opiniones y los nombres (solo el primer nombre) -->
+      <div class="op"><p>Me encantaron mis uñas, duraron más de tres semanas y quedaron hermosas.</p><b>⭐⭐⭐⭐⭐ Valeria</b></div>
+      <div class="op"><p>El pedicure spa fue súper relajante y el diseño quedó tal cual lo quería.</p><b>⭐⭐⭐⭐⭐ Camila</b></div>
+      <div class="op"><p>Atención linda y puntual. Ya agendé mi próxima cita con nail art.</p><b>⭐⭐⭐⭐⭐ Daniela</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PREGUNTAS ============ -->
+<section id="preguntas">
+  <div class="wrap">
+    <h2>Preguntas frecuentes y tips</h2>
+    <p class="sub">Toca una pregunta para ver la respuesta.</p>
+    <!-- ✏️ EDITA AQUÍ: cambia las preguntas y respuestas por las tuyas -->
+    <details><summary>¿Cuánto dura un esmaltado semipermanente?</summary><p>Entre 2 y 3 semanas si lo cuidas bien y evitas usar tus uñas como herramienta.</p></details>
+    <details><summary>¿Cómo cuido mis uñas en casa?</summary><p>Hidrata tus cutículas cada noche con aceite o crema, usa guantes para lavar platos y no te arranques el esmalte.</p></details>
+    <details><summary>¿Puedo llevar mi propio diseño de inspiración?</summary><p>¡Claro! Envíanos tu foto de referencia y lo adaptamos a la forma y el largo de tus uñas.</p></details>
+    <details><summary>¿Cuánto dura una cita?</summary><p>Un manicure toma cerca de 45 minutos; acrílicas y nail art pueden tomar de 1 a 2 horas.</p></details>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto">
+  <div class="wrap contacto">
+    <div>
+      <h2>Reserva tu cita</h2>
+      <!-- ✏️ EDITA AQUÍ: pon tu correo (no pongas teléfono ni dirección en una página pública) -->
+      <p class="sub">Cuéntanos qué servicio quieres y te respondemos para confirmar día y hora.</p>
+      <p>📧 <strong>tucorreo@ejemplo.com</strong></p>
+      <p>🕐 Lunes a sábado, 9 a.m. a 6 p.m.</p>
+    </div>
+    <form id="formulario">
+      <input id="nombre" type="text" placeholder="Tu nombre" required>
+      <select id="servicio" required>
+        <option value="">¿Qué servicio quieres?</option>
+        <option>Manicure clásico</option><option>Pedicure spa</option><option>Uñas acrílicas</option>
+        <option>Esmaltado semipermanente</option><option>Nail art</option><option>Combo manicure + pedicure</option>
+      </select>
+      <textarea id="mensaje" rows="3" placeholder="Cuéntanos tu idea o el día que prefieres"></textarea>
+      <button class="btn" type="submit">Enviar solicitud</button>
+      <p id="gracias" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <!-- ✏️ EDITA AQUÍ: tu nombre o el de tu marca -->
+  Hecho con 💖 por Glam Nails · Todos los derechos reservados
+</footer>
+
+<script>
+/* Menú del celular */
+const menu=document.getElementById('menu');
+document.getElementById('burger').onclick=()=>menu.classList.toggle('abierto');
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('abierto'));
+
+/* Probador de uñas */
+/* ✏️ EDITA AQUÍ: puedes agregar o cambiar colores (nombre y código) */
+const colores=[
+  ['Rosa chicle','#E8458B'],['Rojo cereza','#D61F3A'],['Lila suave','#B79CED'],['Nude','#E8BFA9'],
+  ['Azul cielo','#6FB7F2'],['Verde menta','#5ED6B5'],['Negro brillante','#1E1A22'],['Dorado','#D9B44A'],['Blanco perla','#F6F1F3']
+];
+const mano=document.getElementById('mano'),nombre=document.getElementById('nombreColor'),cont=document.getElementById('colores');
+colores.forEach(([n,c],i)=>{
+  const b=document.createElement('button');
+  b.className='color';b.style.background=c;b.title=n;b.setAttribute('aria-label',n);b.setAttribute('aria-pressed',i===0);
+  b.onclick=()=>{
+    mano.style.setProperty('--esmalte',c);nombre.textContent=n;
+    cont.querySelectorAll('.color').forEach(x=>x.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true');
+  };
+  cont.appendChild(b);
+});
+document.querySelectorAll('#formas .chip').forEach(btn=>btn.onclick=()=>{
+  const f=btn.dataset.forma;
+  if(f==='glitter'){const on=mano.classList.toggle('glitter');btn.setAttribute('aria-pressed',on);return;}
+  mano.classList.remove('almendra','cuadrada','redonda');mano.classList.add(f);
+  document.querySelectorAll('#formas .chip:not([data-forma="glitter"])').forEach(x=>x.setAttribute('aria-pressed',x===btn));
+});
+
+
+/* Galería: uñas dibujadas con estilos distintos */
+/* ✏️ EDITA AQUÍ: nombre, categoría, color de la tarjeta, estilo de uña, adorno y (opcional) tu foto real */
+const diseños=[
+ {n:'Francesa clásica',c:'francesas',f:'linear-gradient(160deg,#FFE9EF,#F7C6D8)',u:'linear-gradient(#fff 0 24%,#F3CFC8 24%)'},
+ {n:'Francesa lila',c:'francesas',f:'linear-gradient(160deg,#EFE3FF,#B79CED)',u:'linear-gradient(#B79CED 0 24%,#FBEFF3 24%)'},
+ {n:'Acrílicas largas',c:'acrilicas',f:'linear-gradient(160deg,#E8458B,#8E5BD6)',u:'linear-gradient(#FF8CC0,#E8458B)',x:'larga'},
+ {n:'Almendra roja',c:'acrilicas',f:'linear-gradient(160deg,#FFD6A5,#FF8A5B)',u:'linear-gradient(#E0314B,#A8122E)',x:'larga'},
+ {n:'Mariposas',c:'decoradas',f:'linear-gradient(160deg,#C9F2E8,#2BB5A0)',u:'linear-gradient(#FFD3E4,#F58FB8)',d:'🦋'},
+ {n:'Glitter dorado',c:'decoradas',f:'linear-gradient(160deg,#FFF3B0,#C9A24B)',u:'radial-gradient(rgba(255,255,255,.95) 1.2px,transparent 1.6px) 0 0/8px 8px,linear-gradient(#E8C766,#B8892B)'},
+ {n:'Flores',c:'decoradas',f:'linear-gradient(160deg,#FFD3E4,#E8458B)',u:'linear-gradient(#FFF,#FBE3EC)',d:'🌸'},
+ {n:'Ombré rosa y lila',c:'decoradas',f:'linear-gradient(160deg,#F3E8FF,#8E5BD6)',u:'linear-gradient(#FF9CCB,#9B6DE0)'},
+ {n:'Corazones',c:'decoradas',f:'linear-gradient(160deg,#FFE0E0,#FF6F6F)',u:'linear-gradient(#FFF4F6,#FFD3DE)',d:'💖'},
+ {n:'Pedicure azul mar',c:'pedicure',f:'linear-gradient(160deg,#D7ECFF,#4A90E2)',u:'linear-gradient(#8FC4FF,#2F6FC4)',x:'pie'},
+ {n:'Pedicure rojo fresa',c:'pedicure',f:'linear-gradient(160deg,#FFE0E0,#FF6F6F)',u:'linear-gradient(#F0455E,#B3122F)',x:'pie'},
+ {n:'Pedicure nude brillante',c:'pedicure',f:'linear-gradient(160deg,#FBEFE6,#E8BFA9)',u:'linear-gradient(#F6DCCB,#D9A88E)',x:'pie'}
+ /* 📷 Para usar tu foto real, agrega a un diseño: ,foto:'imagenes/foto1.jpg' */
+];
+const gal=document.getElementById('galeria-items');
+diseños.forEach(d=>{
+  const t=document.createElement('div');t.className='foto';t.dataset.cat=d.c;t.style.setProperty('--fondo',d.f);
+  let nails='';
+  for(let i=0;i<5;i++){nails+='<i class="mn" style="background:'+d.u+'"'+(d.d&&(i===1||i===3)?' data-d="'+d.d+'"':'')+'></i>';}
+  t.innerHTML='<div class="minanas '+(d.x||'')+'">'+nails+'</div><b>'+d.n+'</b>'+(d.foto?'<img class="real" src="'+d.foto+'" alt="'+d.n+'" onerror="this.remove()">':'');
+  gal.appendChild(t);
+});
+
+/* Filtros de la galería */
+document.querySelectorAll('#filtros .chip').forEach(btn=>btn.onclick=()=>{
+  const cat=btn.dataset.cat;
+  document.querySelectorAll('#filtros .chip').forEach(x=>x.setAttribute('aria-pressed',x===btn));
+  document.querySelectorAll('#galeria-items .foto').forEach(f=>f.classList.toggle('oculta',cat!=='todas'&&f.dataset.cat!==cat));
+});
+
+/* Formulario: abre tu correo con el mensaje listo */
+document.getElementById('formulario').onsubmit=e=>{
+  e.preventDefault();
+  const n=document.getElementById('nombre').value,s=document.getElementById('servicio').value,m=document.getElementById('mensaje').value;
+  /* ✏️ EDITA AQUÍ: pon tu mismo correo de arriba */
+  const correo='tucorreo@ejemplo.com';
+  location.href='mailto:'+correo+'?subject='+encodeURIComponent('Cita: '+s)+'&body='+encodeURIComponent('Hola, soy '+n+'.\n'+m);
+  document.getElementById('gracias').textContent='¡Gracias, '+n+'! Se abrió tu correo para enviar la solicitud 💖';
+};
+</script>
+</body>
+</html>
